@@ -1,0 +1,5 @@
+<p>User : <%= @user.name %></p>
+<p>Email : <%= @user.email %></p>
+<%if !@user.avatar.url.nil? %>
+	<%= image_tag @user.avatar.url(:medium) %>
+	<% end%>
