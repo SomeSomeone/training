@@ -2,4 +2,6 @@
 <p>Email : <%= @user.email %></p>
 <%if !@user.avatar.url.nil? %>
 	<%= image_tag @user.avatar.url(:medium) %>
-	<% end%>
+<% end%>
+<%= link_to 'New Post', new_user_post_path(@user) %>
+<%= render @posts %>

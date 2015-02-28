@@ -1,0 +1,14 @@
+<div>
+
+	<p>
+		<strong>User:</strong>
+		<%= link_to post.user.name , post.user %>
+		запостил это <%= time_ago_in_words(post.created_at)%> назад
+	</p>
+
+	<p>
+		<strong>Content:</strong>
+		<%= post.content %>
+	</p>
+
+</div>
