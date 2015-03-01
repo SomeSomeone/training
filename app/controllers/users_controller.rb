@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :log_into_the_system , except: [:show , :index , :new]
+  before_action :correct_user , only: [:edit , :update , :destroy]
+  before_action :standart_user , only: [:show]
 
   def index
     @users=User.all
@@ -7,12 +10,12 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
+
   def edit
-    @user=User.find(params[:id])
   end
 
   def create
-     @user = User.new(user_params)
+     
      respond_to do |format|
       if @user.save
         log_in @user
@@ -28,7 +31,7 @@ class UsersController < ApplicationController
 
 
   def update
-    @user=User.find(params[:id])
+    
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'Post was successfully updated.' }
@@ -41,12 +44,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user=User.find(params[:id])
     @posts = Post.where("user_id=?" , @user.id).paginate(:page => params[:page], :per_page => 6)
   end
 
   def destroy
-    @user=User.find(params[:id])
     if current_user?(@user)
       log_out
     end
@@ -54,6 +55,13 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
   private
+    def correct_user
+      @user=current_user
+    end
+
+    def standart_user
+      @user=User.find(params[:id])
+    end
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
