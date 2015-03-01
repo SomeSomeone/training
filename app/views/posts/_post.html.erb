@@ -1,8 +1,8 @@
-<div>
+<div class="post">
 
 	<p>
 		<strong>User:</strong>
-		<%= link_to post.user.name , post.user %>
+		<%= link_to current_user?(post.user) ? "ты" : post.user.name, post.user %>
 		запостил это <%= time_ago_in_words(post.created_at)%> назад
 	</p>
 

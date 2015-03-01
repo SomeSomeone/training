@@ -1,3 +1,22 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.user {
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  width: 250px;
+  height: 100%;
+  border-right: 5px solid #527A8F ;
+  background: #638D9F;
+  align: left;
+  text-align: center;
+  text-decoration: none;
+}
+.post_user{
+  position: absolute;
+  left: 18%;
+  width: 80%;
+}

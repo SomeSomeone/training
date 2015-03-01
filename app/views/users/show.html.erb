@@ -1,7 +1,12 @@
-<p>User : <%= @user.name %></p>
-<p>Email : <%= @user.email %></p>
-<%if !@user.avatar.url.nil? %>
-	<%= image_tag @user.avatar.url(:medium) %>
-<% end%>
-<%= link_to 'New Post', new_user_post_path(@user) %>
-<%= render @posts %>
+<div class="user">
+	<%if @user.avatar.url.nil? %>
+		<%= image_tag @user.avatar.url(:medium) %>
+	<% end%>
+	<p>User : <%= @user.name %></p>
+	<p>Email : <%= @user.email %></p>
+
+	<%= link_to 'New Post', new_user_post_path(@user) %>
+</div>
+<div class="post_user">
+	<%= render @posts %>
+</div>
