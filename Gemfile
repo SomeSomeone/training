@@ -1,3 +1,4 @@
+
 source 'https://rubygems.org'
 
 
@@ -44,3 +45,4 @@ group :development, :test do
 end
 
 gem 'paperclip', '~> 4.2.1'
+gem 'will_paginate', '~> 3.0.7'

@@ -1,12 +1,15 @@
 <div class="user">
-	<%if @user.avatar.url.nil? %>
-		<%= image_tag @user.avatar.url(:medium) %>
-	<% end%>
+<%= image_tag @user.avatar.url(:standart) %>
+
 	<p>User : <%= @user.name %></p>
 	<p>Email : <%= @user.email %></p>
+	<%= link_to 'Edit', edit_user_path(@user) %>
 
 	<%= link_to 'New Post', new_user_post_path(@user) %>
 </div>
 <div class="post_user">
 	<%= render @posts %>
+	<p>
+		<%= will_paginate @posts ,style: 'color:grey ; text-decoration: none;' , previous_label: "<", next_label: ">", page_links: false  %>
+	</p>
 </div>

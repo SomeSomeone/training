@@ -8,10 +8,13 @@ Rails.application.routes.draw do
 
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
+  
   delete 'logout'  => 'sessions#destroy'
+
   resources :posts , except:[:new ]
+
   resources :users do
-    resources :posts , only:[:new , :create ,:index]
+    resources :posts , only:[:new , :create ]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
