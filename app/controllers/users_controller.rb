@@ -44,7 +44,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @posts = Post.where("user_id=?" , @user.id).paginate(:page => params[:page], :per_page => 6)
+    if current_user?(@user)
+      @posts = Post.where("user_id IN (?) OR user_id=?" , @user.following_ids , @user.id).paginate(:page => params[:page], :per_page => 6)
+    else
+      @posts = Post.where("user_id=?" , @user.id).paginate(:page => params[:page], :per_page => 6)
+    end
   end
 
   def destroy
