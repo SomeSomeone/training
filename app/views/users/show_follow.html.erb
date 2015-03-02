@@ -1,0 +1,9 @@
+<%= render "profile" %>
+<div class="post_user">
+	<%@users.each do |user|%>
+		<a href="<%= user_path(user) %>"><%= image_tag user.avatar.url(:small) %></a>
+	<%end%>
+	<p>
+		<%= will_paginate @users ,style: 'color:grey ; text-decoration: none;' , previous_label: "<", next_label: ">", page_links: false  %>
+	</p>
+</div>
