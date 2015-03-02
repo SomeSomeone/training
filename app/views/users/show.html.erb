@@ -1,12 +1,4 @@
-<div class="user">
-<%= image_tag @user.avatar.url(:standart) %>
-
-	<p>User : <%= @user.name %></p>
-	<p>Email : <%= @user.email %></p>
-	<%= link_to 'Edit', edit_user_path(@user) %>
-
-	<%= link_to 'New Post', new_user_post_path(@user) %>
-</div>
+<%= render "profile" %>
 <div class="post_user">
 	<%= render @posts %>
 	<p>
