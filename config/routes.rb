@@ -11,8 +11,6 @@ Rails.application.routes.draw do
   
   delete 'logout'  => 'sessions#destroy'
 
-  resources :posts , except:[:new ]
-
   resources :users do
     
     member do
@@ -20,8 +18,9 @@ Rails.application.routes.draw do
       get :followers
     end
 
-    resources :posts , only:[:new , :create ]
+    
   end
+  resources :posts ,              only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.

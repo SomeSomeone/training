@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :log_into_the_system , except: [:show , :index , :new]
+  before_action :log_into_the_system , except: [:show , :index , :new , :following , :followers]
   before_action :correct_user , only: [:edit , :update , :destroy]
-  before_action :standart_user , only: [:show]
+  before_action :standart_user , only: [:show, :following , :followers]
 
   def index
     @users=User.all
@@ -46,6 +46,7 @@ class UsersController < ApplicationController
   def show
     if current_user?(@user)
       @posts = Post.where("user_id IN (?) OR user_id=?" , @user.following_ids , @user.id).paginate(:page => params[:page], :per_page => 6)
+      @post=Post.new
     else
       @posts = Post.where("user_id=?" , @user.id).paginate(:page => params[:page], :per_page => 6)
     end
@@ -60,13 +61,11 @@ class UsersController < ApplicationController
   end
 
   def following
-    @user = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
-    @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end

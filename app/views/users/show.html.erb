@@ -1,5 +1,8 @@
 <%= render "profile" %>
 <div class="post_user">
+	<%if current_user?(@user)%>
+		<%= render 'posts/form' %>	
+	<%end%>
 	<%= render @posts %>
 	<p>
 		<%= will_paginate @posts ,style: 'color:grey ; text-decoration: none;' , previous_label: "<", next_label: ">", page_links: false  %>

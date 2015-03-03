@@ -1,5 +1,5 @@
 class RelationshipsController < ApplicationController
-
+	before_action :log_into_the_system 
 
 
 	def create
