@@ -1,33 +1,38 @@
 class User < ActiveRecord::Base
+	attr_accessor :remember_token, :activation_token
+	#has
+
 	has_many :posts, dependent: :destroy
 	has_many :comments, dependent: :destroy
-	has_many :active_relationships  , class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
 
+	has_many :active_relationships  , class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
 	has_many :passive_relationships , class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 
 	has_many :following, through: :active_relationships  , source: :followed
 	has_many :followers, through: :passive_relationships , source: :follower
 
-  
+	has_attached_file :avatar, :styles => { :standart => "240x300>", :small => "50x50#" }, :default_url => "/images/:style/missing.png"
 
+	has_secure_password
 
-
-
-
-	attr_accessor :remember_token
+  	# validates
 	validates :name ,presence: true,	length: {maximum:50}
+	
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence: true,	length: {maximum:255},
 										format:{with: VALID_EMAIL_REGEX},
 										uniqueness: true
+	
 	validates :password, length: {minimum:6}
-	has_secure_password
-	before_save :downcase_email
-
-
-	has_attached_file :avatar, :styles => { :standart => "240x300>", :small => "50x50#" }, :default_url => "/images/:style/missing.png"
+	
 	validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
+	#before
+	before_save :downcase_email
+	before_create :create_activation_digest
+
+
+	
 
 #	validates_attachment :avatar,
 #	:content_type => { :content_type => ["image/jpeg", "image/gif", "image/png"] }
@@ -56,9 +61,10 @@ class User < ActiveRecord::Base
 	end
 
 	#как я понимаю вещь для сверки верности заколировки тем самым захода через печенье
-	def authenticated?(remember_token)
-		return false if remember_digest.nil?
-		BCrypt::Password.new(remember_digest).is_password?(remember_token)
+	def authenticated?(attribute , token)
+		digest = send("#{attribute}_digest")
+		return false if digest.nil?
+		BCrypt::Password.new(digest).is_password?(token)
 	end
 
   def follow ( other_user )
@@ -73,11 +79,25 @@ class User < ActiveRecord::Base
     following.include?(other_user)
   end
 
+  def activate
+  	update_attribute(:activated,	true)
+  	update_attribute(:activated_at,	Time.zone.now)
+  end
+
+  def send_activation_email
+  	UserMailer.account_activation(self).deliver_now
+  end
+
 
 	private
 
 	def downcase_email
 		self.email.downcase!
+	end
+
+	def create_activation_digest
+		self.activation_token = User.new_token
+		self.activation_digest = User.digest(activation_token)
 	end
 end
 

@@ -18,20 +18,18 @@ class UsersController < ApplicationController
      
      respond_to do |format|
       if @user.save
-        log_in @user
-        format.html { redirect_to @user, notice: 'Comment was successfully create.' }
-        format.json { render :show, status: :ok, location: @user }
+        @user.send_activation_email
+        flash[:info] = "Please check your email to activate your account."
+        redirect_to root_url
       else
-       format.html { render :new , alert: 'ALL BAD!' }
-       format.json { render json: @user, status: :unprocessable_entity }
+        format.html { render :new , alert: 'ALL BAD!' }
       end
     end
   end
 
 
 
-  def update
-    
+  def update    
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'Post was successfully updated.' }
