@@ -1,19 +1,13 @@
 class PostsController < ApplicationController
   before_action :log_into_the_system 
   before_action :set_post, only: [:show, :destroy]
+  include SessionsHelper
+  def show
+    @post = Post.find(params[:id])
+    @comments=@post.comments
+    @comment=@post.comments.build
+  end
 
-  # GET /posts
-  # GET /posts.json
-
-  # GET /posts/1
-  # GET /posts/1.json
-
-  # GET /posts/new
-
-  # GET /posts/1/edit
-
-  # POST /posts
-  # POST /posts.json
   def create
     @user=current_user
     @post = @user.posts.build(post_params)
@@ -27,11 +21,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
-
-  # DELETE /posts/1
-  # DELETE /posts/1.json
   def destroy
     @user=@post.user
     @post.destroy
@@ -48,6 +37,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:content, :user_id, :image)
+      params.require(:post).permit(:content, :image)
     end
 end

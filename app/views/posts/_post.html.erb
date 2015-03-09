@@ -1,7 +1,7 @@
 <div class="post">
-
+	
 	<p>
-		<strong>User:</strong>
+		<a href="<%= user_path(post.user) %>"><%= image_tag post.user.avatar.url(:small) %></a>
 		<%= link_to current_user?(post.user) ? "ты" : post.user.name, post.user %>
 		запостил это <%= time_ago_in_words(post.created_at)%> назад
 	</p>
@@ -12,7 +12,7 @@
 
 	<p>
 		<strong>Content:</strong>
-		<%= post.content %>
+		<%= link_to post.content , post %>
 	</p>
 	<%if current_user?(post.user)%>
 		<%= link_to "delete" , post , method: :delete , data: {confirm: "You sure?"}  %>

@@ -1,0 +1,13 @@
+<%if !comment.created_at.nil? %>
+	<p>
+		<a href="<%= user_path(comment.user) %>"><%= image_tag comment.user.avatar.url(:small) %></a>
+		<%= link_to current_user?(comment.user) ? "ты" : comment.user.name, comment.user %>
+		прокоментироал так <%= time_ago_in_words(comment.created_at)%> назад
+	</p>
+
+	<small> <%= comment.message%></small>
+	<%if current_user?(comment.user) %>
+		<%= link_to "delete"  , comment , method: :delete , data: {confirm: "You sure?"}  %>
+	<%end%>
+
+<%end%>

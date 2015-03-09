@@ -2,8 +2,7 @@
 
 	<%= image_tag @user.avatar.url(:standart) %>
 
-	<p>User : <%= @user.name %></p>
-	<p>Email : <%= @user.email %></p>
+	<p><%= @user.name %></p>
 	<div>
 		<p>
 			<%=link_to "#{@user.following.count} following" , following_user_path(@user) %>
@@ -13,7 +12,7 @@
 	</div>
 	<%if  log_in? %>
 		<%if current_user?(@user)%>
-			<%= link_to 'Edit', edit_user_path(@user) %>
+			<%= link_to "Настройки", edit_user_path(@user) %>
 		<%else%>
 			<% if current_user.following?(@user) %>
 	

@@ -1,0 +1,22 @@
+
+
+<p>
+	<strong>User:</strong>
+	<%= link_to current_user?(@post.user) ? "ты" : @post.user.name, @post.user %>
+	запостил это <%= time_ago_in_words(@post.created_at)%> назад
+</p>
+<%if !@post.image_file_name.nil? %>
+	<%= image_tag @post.image.url(:standart) %>
+<%end%>
+<p>
+	<strong>Content:</strong>
+	<%= @post.content %>
+</p>
+<%if current_user?(@post.user)%>
+	<%= link_to "delete" , @post , method: :delete , data: {confirm: "You sure?"}  %>
+<%end%>
+
+<%if log_in?%>
+<%= render 'comments/form'%>
+<%= render @comments %>
+<%end%>

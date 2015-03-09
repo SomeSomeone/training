@@ -1,2 +1,35 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<div>
+	<p>Это текст о том какой хороший сайт</p>
+</div>
+<%if log_in?%>
+	<p>
+		Yor profile : 
+		<%=link_to current_user.name , user_path(current_user)%>
+	</p>
+<%else%>
+	<div>
+		<h1>Log in</h1>
+
+		<div>
+		  <div>
+		    <%= form_for(:session, url: login_path) do |f| %>
+
+		      <%= f.label :email %>
+		      <%= f.email_field :email, class: 'form-control' %>
+
+		      <%= f.label :password %>
+		      <%= f.password_field :password, class: 'form-control' %>
+		      <%=f.label :remember_me do %>
+		      <%=f.check_box :remember_me %>
+		      <span>Remember me on this computer | а есди по чесноку то для данного браузера</span>
+		    <%end%>
+
+		      <%= f.submit "Log in", class: "btn btn-primary" %>
+		    <% end %>
+
+
+		    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+		  </div>
+		</div>
+	</div>
+<%end%>
