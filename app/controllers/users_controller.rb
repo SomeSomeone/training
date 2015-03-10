@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :log_into_the_system , except: [:show , :index , :new , :following , :followers]
+  before_action :log_into_the_system , except: [:show , :index , :new , :create, :following , :followers]
   before_action :correct_user , only: [:edit , :update , :destroy]
   before_action :standart_user , only: [:show, :following , :followers]
 
@@ -15,16 +15,16 @@ class UsersController < ApplicationController
   end
 
   def create
+    @user=User.new(user_params)
      
-     respond_to do |format|
       if @user.save
         @user.send_activation_email
         flash[:info] = "Please check your email to activate your account."
         redirect_to root_url
       else
-        format.html { render :new , alert: 'ALL BAD!' }
+        render :new 
+        flash[:alert] = 'ALL BAD!' 
       end
-    end
   end
 
 

@@ -1,3 +1,13 @@
-Вы в одном шаге от АЕ-133 
+
+<!--Вы в одном шаге от АЕ-133 
 <%= @user.name %> тебе осталось только нажать на ссылку
 <%= edit_account_activation_url(@user.activation_token , email: @user.email)%>
+-->
+
+
+
+Hi <%= @user.name %>,
+
+Welcome to the Sample App! Click on the link below to activate your account:
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
