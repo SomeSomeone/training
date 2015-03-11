@@ -1,0 +1,14 @@
+<h1>Ну вводи новый пароль</h1>
+<%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+	<%=render 'shared/error_messages' %>
+	<%=hiden_field_tag :email, @user.email %>
+
+	<%= f.label :password %>
+	<%= f.password_field :password %>
+
+
+	<%= f.label :password_confirmation, "Confirmation" %>
+	<%= f.password_field :password_confirmation %>
+
+	<%= f.submit "Подтвердить" , class: "action"%>
+<%end%>
