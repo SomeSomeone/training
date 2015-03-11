@@ -1,8 +1,8 @@
 <h1> Ах ты пароль забыл!</h1>
 
-<%= form_for(:password_reset, url: password_reset_path ) do |f| %>
+<%= form_for(:password_reset, url: password_resets_path ) do |f| %>
 	<%= f.label :email %>
 	<%= f.email_field :email %>
 
-	<%= f.submit "Востановить!" , class="actions"%>
+	<%= f.submit "Востановить!" , class: "actions"%>
 <%end%>

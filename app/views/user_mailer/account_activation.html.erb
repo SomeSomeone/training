@@ -1,15 +1,9 @@
-<!--<h1>Вы в одном шаге от АЕ-133 </h1>
-<p><%=@user.name %> тебе осталось только нажать на ссылку<p>
-<p>
-  <%= link_to "Активируй меня" , edit_account_activation_url(@user.activation_token , email: @user.email)%>
-</p>-->
-
 <h1>Sample App</h1>
 
 <p>Hi <%= @user.name %>,</p>
 
 <p>
-Welcome to the Sample App! Click on the link below to activate your account:
+Click on the link below to activate your account:
 </p>
 
 <%= link_to "Activate", edit_account_activation_url(@user.activation_token,

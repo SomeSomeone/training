@@ -29,9 +29,11 @@ class PasswordResetsController < ApplicationController
   	elsif @user.update_attributes(user_params)
   		log_in @user
   		flash[:success]="Всё обновил"
+      redirect_to @user
   	else
   		render 'edit'
   	end
+
   end
 
   private
@@ -45,7 +47,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def get_user
-  	@user = User.find_by(email: params [:email])
+    @user = User.find_by(email: params[:email])
   end
 
   def valid_user
