@@ -1,0 +1,5 @@
+<%= form_for(:design, url: design_index_path) do |f| %>
+  <%= f.label :color %>
+  <%= f.text_field :color, class: 'form-control' %>
+  <%= f.submit "подтвердить", class: "btn btn-primary" %>
+<% end %>
