@@ -11,12 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310110411) do
+ActiveRecord::Schema.define(version: 20150313200044) do
+
+  create_table "adapters", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "dialog_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "adapters", ["dialog_id"], name: "index_adapters_on_dialog_id"
+  add_index "adapters", ["user_id"], name: "index_adapters_on_user_id"
 
   create_table "comments", force: :cascade do |t|
     t.text     "message"
     t.integer  "user_id"
     t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dialog_messages", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "dialog_id"
+    t.text     "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "dialog_messages", ["dialog_id"], name: "index_dialog_messages_on_dialog_id"
+  add_index "dialog_messages", ["user_id"], name: "index_dialog_messages_on_user_id"
+
+  create_table "dialogs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

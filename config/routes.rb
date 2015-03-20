@@ -21,7 +21,11 @@ Rails.application.routes.draw do
   resources :posts ,              only: [:show, :create, :destroy]
   resources :comments ,           only: [:create , :destroy]
 
+  resources :dialogs
+  resources :dialog_messages
   resources :relationships,       only: [:create, :destroy]
+  resources :adapters
+
   resources :account_activations, only: [:edit]
 
   resources :password_resets,     only: [:new, :create, :edit, :update]

@@ -2,6 +2,11 @@ class User < ActiveRecord::Base
 	attr_accessor :remember_token, :activation_token ,:reset_token
 	#has
 
+	has_many :dialog_messages
+	has_many :adapters , dependent: :destroy
+	has_many :dialogs , through: :adapters
+
+
 	has_many :posts, dependent: :destroy
 	has_many :comments, dependent: :destroy
 

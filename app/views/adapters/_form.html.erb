@@ -1,0 +1,23 @@
+<%= form_for ( @adapter  ) do |adapter| %>
+  <% if @adapter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@adapter.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @adapter.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= adapter.label :user_id %><br>
+    <%= adapter.text_area :user_id %>
+  </div>
+  <div class="actions">
+    <%= adapter.submit "Добавить пользователя" %>
+  </div>
+  <%= hidden_field_tag :dialog_id, @dialog.id %>
+
+<%end%>

@@ -1,0 +1,6 @@
+<%=form_for @dialog do |d|%>
+	<%=d.submit%>
+<%end%>
+<% @dialogs.each do |dialog| %>
+	<%= link_to dialog.id , dialog%>
+<%end%>

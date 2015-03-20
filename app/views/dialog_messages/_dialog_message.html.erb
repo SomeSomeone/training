@@ -1,0 +1,5 @@
+<p>
+	<a href="<%= user_path(dialog_message.user) %>"><%= image_tag dialog_message.user.avatar.url(:small) %></a>
+	<%= dialog_message.message %><--|
+	<%= dialog_message.created_at.localtime %>
+</p>
